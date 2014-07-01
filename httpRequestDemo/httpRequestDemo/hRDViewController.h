@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface hRDViewController : UIViewController
+@interface hRDViewController : UIViewController <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *targetURLLabel;
-- (IBAction)downloadURL:(id)sender;
-@property (weak, nonatomic) IBOutlet UIImageView *showImage;
 
+@property (weak, nonatomic) IBOutlet UIImageView *showImage;
+@property(strong, nonatomic) NSURL *url;
+@property(strong, nonatomic) NSURLRequest *urlRequest;
+@property(strong, nonatomic) NSURLConnection *urlConnection;
+
+- (IBAction)downloadURL:(id)sender;
 @end
