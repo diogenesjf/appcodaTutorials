@@ -26,6 +26,11 @@
         self.locationManager.delegate = self;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     }
+    
+    if(!self.geocoder)
+    {
+        self.geocoder = [[CLGeocoder alloc]init];
+    }
 }
 
 -(void)viewWillAppear
@@ -70,5 +75,27 @@
         
         NSLog(@"Labels are Lat:%@ Long:%@\n", self.latitudeLabel.text, self.longitudeLabel.text);
     }
+    
+    NSLog(@"Resolving the Address");
+    
+    
+    [self.geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray *placemarks, NSError  *error)
+     {
+         NSLog(@"Found placemarks: %@, error: %@",placemarks, error );
+         if (error == nil && [placemarks count] >0)
+         {
+             self.placemark = [placemarks lastObject];
+             self.addressLabel.text  = [NSString stringWithFormat:@"%@ %@\n%@ %@\n%@\n%@",
+                                   self.placemark.subThoroughfare, self.placemark.thoroughfare,
+                                   self.placemark.postalCode, self.placemark.locality,
+                                   self.placemark.administrativeArea,
+                                   self.placemark.country];
+         }
+         else
+         {
+             NSLog(@"%@", error.debugDescription);
+         }
+         
+     }];
 }
 @end

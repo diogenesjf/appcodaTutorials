@@ -10,11 +10,15 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface ViewController : UIViewController <CLLocationManagerDelegate>
-@property (strong, nonatomic) IBOutlet UILabel *latitudeLabel;
-@property (strong, nonatomic) IBOutlet UILabel *longitudeLabel;
-@property (strong, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *latitudeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLGeocoder *geocoder;
+@property (strong, nonatomic) CLPlacemark *placemark;
 @property (strong, nonatomic) CLLocation *currentLocation;
+
 - (IBAction)getCurrentLocation:(id)sender;
 - (IBAction)labelUpdate:(id)sender;
 
