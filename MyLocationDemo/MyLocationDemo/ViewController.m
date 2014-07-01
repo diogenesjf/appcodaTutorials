@@ -98,4 +98,9 @@
          
      }];
 }
+
+// 4. Build a simple app that asynchronously downloads the Google logo i.e. does a get request
+
+// https://www.google.com/logos/doodles/2014/world-cup-2014-46-6545923702259712.3-hp.gif
+
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1402954E196326CD0055E20D /* urlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402954D196326CD0055E20D /* urlViewController.m */; };
 		14A7DED21961EC9900576AFE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A7DED11961EC9900576AFE /* Foundation.framework */; };
 		14A7DED41961EC9900576AFE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A7DED31961EC9900576AFE /* CoreGraphics.framework */; };
 		14A7DED61961EC9900576AFE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A7DED51961EC9900576AFE /* UIKit.framework */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1402954C196326CD0055E20D /* urlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = urlViewController.h; sourceTree = "<group>"; };
+		1402954D196326CD0055E20D /* urlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = urlViewController.m; sourceTree = "<group>"; };
 		14A7DECE1961EC9900576AFE /* MyLocationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A7DED11961EC9900576AFE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14A7DED31961EC9900576AFE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -121,6 +124,8 @@
 				14A7DEE31961EC9900576AFE /* Main.storyboard */,
 				14A7DEE61961EC9900576AFE /* ViewController.h */,
 				14A7DEE71961EC9900576AFE /* ViewController.m */,
+				1402954C196326CD0055E20D /* urlViewController.h */,
+				1402954D196326CD0055E20D /* urlViewController.m */,
 				14A7DEE91961EC9900576AFE /* Images.xcassets */,
 				14A7DED81961EC9900576AFE /* Supporting Files */,
 			);
@@ -253,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1402954E196326CD0055E20D /* urlViewController.m in Sources */,
 				14A7DEE81961EC9900576AFE /* ViewController.m in Sources */,
 				14A7DEE21961EC9900576AFE /* AppDelegate.m in Sources */,
 				14A7DEDE1961EC9900576AFE /* main.m in Sources */,
@@ -460,6 +466,7 @@
 				14A7DF021961EC9900576AFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		14A7DF031961EC9900576AFE /* Build configuration list for PBXNativeTarget "MyLocationDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +475,7 @@
 				14A7DF051961EC9900576AFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

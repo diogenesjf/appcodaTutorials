@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "urlViewController.h"
 
 @interface ViewController : UIViewController <CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *latitudeLabel;
