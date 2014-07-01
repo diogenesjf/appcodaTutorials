@@ -26,12 +26,6 @@
         self.locationManager.delegate = self;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     }
-
-        self.latitudeLabel = [[UILabel alloc]init];
-
-
-        self.longitudeLabel = [[UILabel alloc]init];
-
 }
 
 -(void)viewWillAppear
@@ -71,11 +65,9 @@
     if(self.currentLocation)
     {
         // set longitude, latitude label text
-        self.longitudeLabel.text = [NSString stringWithFormat:@"%f", self.currentLocation.coordinate.longitude];
-        self.latitudeLabel.text = [NSString stringWithFormat:@"%f", self.currentLocation.coordinate.latitude];
+        self.longitudeLabel.text = [NSString stringWithFormat:@"%3.5f", self.currentLocation.coordinate.longitude];
+        self.latitudeLabel.text = [NSString stringWithFormat:@"%3.5f", self.currentLocation.coordinate.latitude];
         
-        NSLog(@"is lat label userinteractionenabled? %@\n",[self.latitudeLabel isUserInteractionEnabled] ? @"YES" : @"NO");
-        NSLog(@"is long label userinteractionenabled? %@\n",[self.longitudeLabel isUserInteractionEnabled] ? @"YES" : @"NO");
         NSLog(@"Labels are Lat:%@ Long:%@\n", self.latitudeLabel.text, self.longitudeLabel.text);
     }
 }
