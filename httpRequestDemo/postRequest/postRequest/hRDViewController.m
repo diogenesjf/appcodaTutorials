@@ -13,6 +13,8 @@
 @end
 
 @implementation hRDViewController
+- (IBAction)postData:(id)sender {
+}
 
 - (void)viewDidLoad
 {
