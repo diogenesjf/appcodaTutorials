@@ -112,8 +112,6 @@
 		1422ACD01964761300BCB9D0 /* postRequest */ = {
 			isa = PBXGroup;
 			children = (
-				1422ACD91964761300BCB9D0 /* hRDAppDelegate.h */,
-				1422ACDA1964761300BCB9D0 /* hRDAppDelegate.m */,
 				1422ACDC1964761300BCB9D0 /* Main.storyboard */,
 				1422ACDF1964761300BCB9D0 /* hRDViewController.h */,
 				1422ACE01964761300BCB9D0 /* hRDViewController.m */,
@@ -126,6 +124,8 @@
 		1422ACD11964761300BCB9D0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1422ACD91964761300BCB9D0 /* hRDAppDelegate.h */,
+				1422ACDA1964761300BCB9D0 /* hRDAppDelegate.m */,
 				1422ACD21964761300BCB9D0 /* postRequest-Info.plist */,
 				1422ACD31964761300BCB9D0 /* InfoPlist.strings */,
 				1422ACD61964761300BCB9D0 /* main.m */,

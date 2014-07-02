@@ -10,9 +10,10 @@
 #import <UIKit/UIKit.h>
 
 @interface hRDViewController : UIViewController <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
-@property (copy, nonatomic)NSString* userID;
+@property (copy, nonatomic)NSString* userId;
 @property (copy, nonatomic)NSString* latitude;
 @property (copy, nonatomic)NSString* longitude;
+@property NSNumber* radius;
 @property (strong, nonatomic)NSURL* url;
 @property  (strong, nonatomic)NSMutableURLRequest* request;
 @property (strong, nonatomic)NSURLConnection *connection;
