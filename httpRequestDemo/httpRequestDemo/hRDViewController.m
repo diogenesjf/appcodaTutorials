@@ -19,11 +19,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    // setup NSURL object with google.com logo gif
+    // setup NSURL object with google.com logo
     
     self.url = [NSURL URLWithString:@"https://www.google.com/images/srpr/logo11w.png"];
     
     self.urlRequest = [NSURLRequest requestWithURL:self.url];
+    self.receivedData = [NSMutableData dataWithCapacity:0];
     
 
 }
@@ -40,15 +41,11 @@
         {
             self.targetURLLabel.text = [self.url absoluteString];
             self.urlConnection =[NSURLConnection connectionWithRequest:self.urlRequest delegate:self];
-            NSLog(@"URL is %@ and URLRequest is %@\n",self.url, self.urlRequest );
+            NSLog(@"URL is %@\nURLRequest is %@\n",self.url, self.urlRequest );
         }
-    if(!self.urlConnection)
-    {
-        self.receivedData = nil;
-    }
 }
 
-#pragma mark implement NSURLConnectionDelegate methods
+#pragma mark implement NSURLConnectionDelegate and NSURLConnectionData Delegate methods
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
@@ -85,12 +82,16 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    // Connection succeeded. Release the NSURLConnection object.
+    // Connection succeeded.
     // Delegate receives no further messages for the connection
+    //Release the NSURLConnection object.
+
     
     // do something with the data HERE!!! - send to UIImageView object
     
     NSLog(@"Connection succeeded! Received %d bytes of data\n", [self.receivedData length]);
+    
+    NSLog(@"%@\n",[self.receivedData description]);
     
     NSLog(@"Closing connection...");
     
