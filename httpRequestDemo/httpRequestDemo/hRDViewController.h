@@ -10,12 +10,13 @@
 
 @interface hRDViewController : UIViewController <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *targetURLLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
-@property (weak, nonatomic) IBOutlet UIImageView *showImage;
 @property(strong, nonatomic) NSURL *url;
 @property(strong, nonatomic) NSURLRequest *urlRequest;
 @property(strong, nonatomic) NSURLConnection *urlConnection;
 @property(strong, nonatomic) NSMutableData *receivedData;
+
 
 - (IBAction)downloadURL:(id)sender;
 @end

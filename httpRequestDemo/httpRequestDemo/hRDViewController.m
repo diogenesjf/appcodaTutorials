@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 seanreed.test. All rights reserved.
 //
 
+// uses NSURLConnection to download Google.com logo asynchronously
+
 #import "hRDViewController.h"
 
 @interface hRDViewController ()
@@ -25,6 +27,7 @@
     
     self.urlRequest = [NSURLRequest requestWithURL:self.url];
     self.receivedData = [NSMutableData dataWithCapacity:0];
+//    self.imageView = [[UIImageView alloc]init]; DON'T NEED THIS IF YOU BUILD WITH STORYBOARD
     
 
 }
@@ -88,6 +91,11 @@
 
     
     // do something with the data HERE!!! - send to UIImageView object
+    //   THIS also works--> UIImage * image = [UIImage imageWithData:self.receivedData];
+    
+    UIImage *image  =[[UIImage alloc]initWithData:self.receivedData];
+    [self.imageView setImage:image];
+    [self.imageView setNeedsDisplay];
     
     NSLog(@"Connection succeeded! Received %d bytes of data\n", [self.receivedData length]);
     
@@ -96,7 +104,7 @@
     NSLog(@"Closing connection...");
     
     self.urlConnection = nil;
-    self.receivedData = nil;
+//    self.receivedData = nil;
 }
 
 @end

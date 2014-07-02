@@ -47,7 +47,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="showImage" destination="28p-5Y-dGg" id="ulZ-b9-BKf"/>
+                        <outlet property="imageView" destination="28p-5Y-dGg" id="U5B-18-wR6"/>
                         <outlet property="targetURLLabel" destination="SNu-JT-Tw6" id="WHC-hM-qH6"/>
                     </connections>
                 </viewController>
