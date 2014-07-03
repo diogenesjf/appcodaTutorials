@@ -28,6 +28,7 @@
     
     NSString *website = @"http://protected‐wildwood-8664.herokuapp.com/users.json";
 
+//    NSString *website = @"http://google.com";
     //convert encoding on website string to proper NSUTF8StringEncoding to prevent malformed NSURLMutableRequest object
 
     self.url = [[NSURL alloc]initWithString:[website
@@ -42,7 +43,7 @@
     
     NSDictionary *userDetails = [[NSDictionary alloc]init];
     
-    userDetails = @{@"utf8": @"✓", @"authenticity_token":@"EvZva3cKnzo3Y0G5R3NktucCr99o2UWOPVAmJYdBOc=",
+    userDetails = @{@"utf8": @"YES", @"authenticity_token":@"EvZva3cKnzo3Y0G5R3NktucCr99o2UWOPVAmJYdBOc=",
                     @"user":@{@"username":self.userId,
                               @"latitude":self.latitude,
                               @"longitude":self.longitude,
@@ -93,7 +94,7 @@
     NSMutableString *dataString = [[NSMutableString alloc]init];
 //    NSLog(@"Response as a string is %@", [dataString initWithData:self.data encoding:NSUnicodeStringEncoding]);
     
-    
+
     
     NSLog(@"Data is valid JSON Object? %@",[NSJSONSerialization isValidJSONObject:self.data] ? @"YES" : @"NO");
 
@@ -117,7 +118,10 @@
     // It can be called multiple times, for example in the case of the
     //redirect, so each time we reset the data.
     
-    [self.data setLength:0];
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    NSLog(@"All headers in the response = %@", [httpResponse allHeaderFields]);
+    
+ //   [self.data setLength:0];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
