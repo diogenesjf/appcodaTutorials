@@ -13,9 +13,32 @@
 @end
 
 @implementation hRDViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+	// Do any additional setup after loading the view, typically from a nib.
+    self.userId = @"Captain Caveman";
+    self.longitude = @"51.5072° N";
+    self.latitude = @"0.1275° W";
+    self.radius = [NSNumber numberWithDouble:2.1];
+    self.data = [NSMutableData dataWithCapacity:0];
+
+    
+    NSString *website = @"http://protected‐wildwood-8664.herokuapp.com/";
+
+    //convert encoding on website string to proper NSUTF8StringEncoding to prevent malformed NSURLMutableRequest object
+    
+    self.url = [[NSURL alloc]initWithString:[website
+                                             stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    self.request = [NSMutableURLRequest requestWithURL:self.url];
+    NSLog(@"Initial NSURLRequest object is %@",self.request);
+}
+
 - (IBAction)postData:(id)sender
 {
-    // set data to send via request
+    // compose NSData object to send via NSURLRequest
     
     NSDictionary *userDetails = [[NSDictionary alloc]init];
     
@@ -28,30 +51,18 @@
                     @"action":@"update",
                     @"controller":@"users"};
     
-    NSLog(@"%@\n",[userDetails description]);
-    
     // modify request object for post request
     NSData *postData = [NSJSONSerialization dataWithJSONObject:userDetails options:NSJSONWritingPrettyPrinted error:nil];
-
-    [self.request setHTTPMethod:@"POST"];
-    [self.request setHTTPBody:postData];
-    
-    //set up connection object
-    
-    [self.connection initWithRequest:self.request delegate:self];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-	// Do any additional setup after loading the view, typically from a nib.
-    
-    self.data = [NSMutableData dataWithCapacity:0];
-    self.url = [NSURL URLWithString:@"http://protected‐wildwood-8664.herokuapp.com/users"];
-    self.request = [NSURLRequest requestWithURL:self.url];
-    
-    
+ 
+    if(self.request && postData)     //set up connection object and connect!
+    {
+        [self.request setHTTPMethod:@"POST"];
+        [self.request setHTTPBody:postData];
+        
+        NSLog(@"Final NSURLRequest Object is %@\n",[self.request description]);
+        
+        self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
+    }
 }
 
 - (void)didReceiveMemoryWarning
