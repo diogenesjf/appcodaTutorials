@@ -20,19 +20,20 @@
     
 	// Do any additional setup after loading the view, typically from a nib.
     self.userId = @"bbbbbbbbbbbbbbbb";
-    self.longitude = [NSNumber numberWithDouble:2.1];
-    self.latitude = [NSNumber numberWithDouble:2.1];
-    self.radius = [NSNumber numberWithDouble:2.1];
+    
+//      with strings
+    self.longitude = @"2.1";
+    self.latitude = @"2.1";
+    self.radius = @"2.1";
     self.data = [NSMutableData dataWithCapacity:0];
 
-    
-    NSString *website = @"http://protected‐wildwood-8664.herokuapp.com/users.json";
+    NSString *website = @"http://protected-wildwood-8664.herokuapp.com/users";
 
-//    NSString *website = @"http://google.com";
     //convert encoding on website string to proper NSUTF8StringEncoding to prevent malformed NSURLMutableRequest object
 
     self.url = [[NSURL alloc]initWithString:[website
                                              stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
     self.request = [NSMutableURLRequest requestWithURL:self.url];
     NSLog(@"Initial NSURLRequest object is %@",self.request);
 }
@@ -43,15 +44,17 @@
     
     NSDictionary *userDetails = [[NSDictionary alloc]init];
     
-    userDetails = @{@"utf8": @"YES", @"authenticity_token":@"EvZva3cKnzo3Y0G5R3NktucCr99o2UWOPVAmJYdBOc=",
+    userDetails = @{@"utf8": @"✓", @"authenticity_token":@"EvZva3cKnzo3Y0G5R3NktucCr99o/2UWOPVAmJYdBOc=",
                     @"user":@{@"username":self.userId,
                               @"latitude":self.latitude,
                               @"longitude":self.longitude,
                               @"radius":self.radius},
-                    @"commit":@"CreateUser"
+                    @"commit":@"CreateUser",
+                    @"controller":@"users",
+                    @"action":@"update"
                     };
 
-    //                     @"controller":@"users"                     @"action":@"create"
+    //
     // modify request object for post request
     
     NSData *postData = [NSJSONSerialization dataWithJSONObject:userDetails options:NSJSONWritingPrettyPrinted error:nil];
@@ -59,10 +62,15 @@
     
     if(self.request && postData)     //set up connection object and connect!
     {
+        //POST REQUEST
         [self.request setHTTPMethod:@"POST"];
         [self.request setHTTPBody:postData];
         [self.request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [self.request setValue:[NSString stringWithFormat:@"%d", [postData length]] forHTTPHeaderField:@"Content-Length"];
+
+        //GET REQUEST
+//        [self.request setHTTPMethod:@"GET"];
+//        [self.request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         NSLog(@"Method is %@", [self.request HTTPMethod]);
         NSLog(@"Final Header Fields are %@\n",[self.request allHTTPHeaderFields]);
@@ -89,13 +97,6 @@
     
     NSLog(@"Connection succeeded! Received %d bytes of data\n", [self.data length]);
     
-    // lets try to find out what is in self.data
-    
-    NSMutableString *dataString = [[NSMutableString alloc]init];
-//    NSLog(@"Response as a string is %@", [dataString initWithData:self.data encoding:NSUnicodeStringEncoding]);
-    
-
-    
     NSLog(@"Data is valid JSON Object? %@",[NSJSONSerialization isValidJSONObject:self.data] ? @"YES" : @"NO");
 
     // convert response data received from website to json
@@ -115,13 +116,15 @@
     // This method is called when the server has determined that is
     // has enough info to create the NSURLResponse object.
     
-    // It can be called multiple times, for example in the case of the
+    // It can be called multiple times, for example in the case of a
     //redirect, so each time we reset the data.
     
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    NSLog(@"Status Code of response = %d", [httpResponse statusCode]);
     NSLog(@"All headers in the response = %@", [httpResponse allHeaderFields]);
     
- //   [self.data setLength:0];
+    
+//   [self.data setLength:0];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data

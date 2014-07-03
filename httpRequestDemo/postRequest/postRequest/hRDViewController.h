@@ -11,9 +11,9 @@
 
 @interface hRDViewController : UIViewController <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 @property (copy, nonatomic)NSString* userId;
-@property (copy, nonatomic)NSNumber* latitude;
-@property (copy, nonatomic)NSNumber* longitude;
-@property NSNumber* radius;
+@property (copy, nonatomic)NSString* latitude;
+@property (copy, nonatomic)NSString* longitude;
+@property (copy, nonatomic)NSString* radius;
 @property (strong, nonatomic)NSURL* url;
 @property  (strong, nonatomic)NSMutableURLRequest* request;
 @property (strong, nonatomic)NSURLConnection *connection;
