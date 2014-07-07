@@ -5,6 +5,7 @@
 //  Created by Sean Reed on 7/2/14.
 //  Copyright (c) 2014 seanreed.test. All rights reserved.
 //
+//--Create parent userid
 
 #import "hRDViewController.h"
 
@@ -19,7 +20,7 @@
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view, typically from a nib.
-    self.userId = @"bbbbbbbbbbbbbbbb";
+    self.userId = @"sean0";
     
 //      with strings
     self.longitude = @"2.1";
@@ -58,7 +59,7 @@
     // modify request object for post request
     
     NSData *postData = [NSJSONSerialization dataWithJSONObject:userDetails options:NSJSONWritingPrettyPrinted error:nil];
-    
+    NSLog(@"postData variable is %@", postData);
     
     if(self.request && postData)     //set up connection object and connect!
     {
@@ -67,10 +68,6 @@
         [self.request setHTTPBody:postData];
         [self.request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [self.request setValue:[NSString stringWithFormat:@"%d", [postData length]] forHTTPHeaderField:@"Content-Length"];
-
-        //GET REQUEST
-//        [self.request setHTTPMethod:@"GET"];
-//        [self.request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         NSLog(@"Method is %@", [self.request HTTPMethod]);
         NSLog(@"Final Header Fields are %@\n",[self.request allHTTPHeaderFields]);
@@ -98,12 +95,15 @@
     NSLog(@"Connection succeeded! Received %d bytes of data\n", [self.data length]);
     
     NSLog(@"Data is valid JSON Object? %@",[NSJSONSerialization isValidJSONObject:self.data] ? @"YES" : @"NO");
+    
+    NSString *stringResponse = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
+    
+    NSJSONSerialization *serialResponse = [NSJSONSerialization JSONObjectWithData:self.data options:NSJSONReadingMutableContainers error:nil];
+    
 
-    // convert response data received from website to json
     
-    NSJSONSerialization *response = [NSJSONSerialization JSONObjectWithData:self.data options:NSJSONReadingMutableContainers error:nil];
-    
-    NSLog(@"%@\nResponse data is:\n", response);
+    NSLog(@"%@\nNSJSONSerializationResponse data is:\n", [serialResponse description]);
+    NSLog(@"%@\nNSString Response data is:\n", stringResponse);
     
     NSLog(@"Closing connection...");
     
@@ -124,7 +124,7 @@
     NSLog(@"All headers in the response = %@", [httpResponse allHeaderFields]);
     
     
-//   [self.data setLength:0];
+   [self.data setLength:0];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
@@ -147,6 +147,12 @@
     
     NSLog(@"Connection failed! Error - %@ %@",
           [error localizedDescription],[[error userInfo] objectForKey:NSURLErrorFailingURLErrorKey]);
+}
+
+- (void)connection:(NSURLConnection *)connection
+willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+{
+    NSLog(@"%@ authentication challenge received?\n", challenge == nil ?@"NO" :[challenge description]);
 }
 
 @end
