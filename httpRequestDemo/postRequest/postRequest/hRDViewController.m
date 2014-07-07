@@ -36,7 +36,7 @@
                                              stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     self.request = [NSMutableURLRequest requestWithURL:self.url];
-    NSLog(@"Initial NSURLRequest object is %@",self.request);
+    NSLog(@"\nInitial NSURLRequest Parent object is %@",self.request);
 }
 
 - (IBAction)postData:(id)sender
@@ -69,9 +69,9 @@
         [self.request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [self.request setValue:[NSString stringWithFormat:@"%d", [postData length]] forHTTPHeaderField:@"Content-Length"];
         
-        NSLog(@"Method is %@", [self.request HTTPMethod]);
-        NSLog(@"Final Header Fields are %@\n",[self.request allHTTPHeaderFields]);
-        NSLog(@"URL is %@", [self.request URL]);
+        NSLog(@"Parent Method is %@", [self.request HTTPMethod]);
+        NSLog(@"Final Parent Header Fields are %@\n",[self.request allHTTPHeaderFields]);
+        NSLog(@"Parent URL is %@", [self.request URL]);
         
         
 //        NSLog(@"HTTP Method is %@\n",[self.request HTTPMethod]);
@@ -89,7 +89,7 @@
     // Connection succeeded.
 
     // do something with the data HERE!!!
-    // change the label on the button
+    // Maybe you could change the label on the button, for example
 
     
     NSLog(@"Connection succeeded! Received %d bytes of data\n", [self.data length]);

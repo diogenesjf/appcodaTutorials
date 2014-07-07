@@ -18,13 +18,48 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.userId = @"sean0";
+    self.latitude = @"4";
+    self.longitude = @"4";
+    self.data = [NSMutableData dataWithCapacity:0];
     
-}
+    NSString *childWebsite = @"http://protected-wildwood-8664.herokuapp.com/users/username";
+    
+    self.url = [[NSURL alloc]initWithString:childWebsite];
+    
 
-- (void)didReceiveMemoryWarning
+    self.request = [NSMutableURLRequest requestWithURL:self.url];
+    NSLog(@"Initial NSURLRequest Child object is %@",self.request);
+}
+- (IBAction)updateChildStatus:(id)sender
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSDictionary *childDetails = @{@"utf8": @"☐",
+                                @"authenticity_token":@"EvZva3cKnzo3Y0G5R3NktucCr99o/2UWOPVAmJYdBOc=", @"user":@{@"username":self.userId,
+                                                                                                                 @"current_lat":self.latitude,
+                                                                                                                 @"current_longitude":self.longitude
+                                                                                                                 },
+                                @"commit":@"CreateUser",
+                                @"action":@"update",
+                                @"controller":@"users"};
+    NSData *childPostData = [NSJSONSerialization dataWithJSONObject:childDetails options:NSJSONWritingPrettyPrinted error:nil];
+    NSLog(@"Child Posted Data is %@", childPostData);
+    
+    if(self.request && childPostData)
+    {
+        // submit PATCH Request
+        [self.request setHTTPMethod:@"PATCH"];
+        [self.request setHTTPBody:childPostData];
+        [self.request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [self.request setValue:[NSString stringWithFormat:@"%d", [childPostData length]] forHTTPHeaderField:@"Content-Length"];
+        NSLog(@"\nChild Method is %@", [self.request HTTPMethod]);
+        NSLog(@"\nFinal Child Header Fields are %@\n",[self.request allHTTPHeaderFields]);
+        NSLog(@"\nChild URL is %@\n", [self.request URL]);
+        // make the connection
+        
+        self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
+        
+    }
+    
 }
 
 /*
