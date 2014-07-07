@@ -19,13 +19,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.userId = @"sean0";
-    self.latitude = @"4";
-    self.longitude = @"4";
+    self.latitude = @"222";
+    self.longitude = @"222";
     self.data = [NSMutableData dataWithCapacity:0];
     
-    NSString *childWebsite = @"http://protected-wildwood-8664.herokuapp.com/users/username";
+    NSString *childWebsite = @"http://protected-wildwood-8664.herokuapp.com/users/sean0";
     
-    self.url = [[NSURL alloc]initWithString:childWebsite];
+    self.url = [[NSURL alloc]initWithString:[childWebsite stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
 
     self.request = [NSMutableURLRequest requestWithURL:self.url];
@@ -33,15 +33,26 @@
 }
 - (IBAction)updateChildStatus:(id)sender
 {
-    NSDictionary *childDetails = @{@"utf8": @"☐",
-                                @"authenticity_token":@"EvZva3cKnzo3Y0G5R3NktucCr99o/2UWOPVAmJYdBOc=", @"user":@{@"username":self.userId,
-                                                                                                                 @"current_lat":self.latitude,
-                                                                                                                 @"current_longitude":self.longitude
-                                                                                                                 },
+    if(!self.dictDetails)
+    {
+        self.dictDetails = [[NSDictionary alloc]init];
+    
+        self.dictDetails = @{@"utf8": @"☐", @"authenticity_token":@"EvZva3cKnzo3Y0G5R3NktucCr99o/2UWOPVAmJYdBOc=",
+                     @"user":@{@"username":self.userId,
+                                             @"current_lat":self.latitude,
+                                             @"current_longitude":self.longitude
+                                            },
                                 @"commit":@"CreateUser",
                                 @"action":@"update",
-                                @"controller":@"users"};
-    NSData *childPostData = [NSJSONSerialization dataWithJSONObject:childDetails options:NSJSONWritingPrettyPrinted error:nil];
+                                @"controller":@"users"
+                     };
+    }
+    
+    NSLog(@"%@", [self.dictDetails description]);
+    
+    NSData *childPostData = [NSJSONSerialization dataWithJSONObject:self.dictDetails
+                                                            options:NSJSONWritingPrettyPrinted
+                                                              error:nil];
     NSLog(@"Child Posted Data is %@", childPostData);
     
     if(self.request && childPostData)
@@ -51,7 +62,7 @@
         [self.request setHTTPBody:childPostData];
         [self.request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [self.request setValue:[NSString stringWithFormat:@"%d", [childPostData length]] forHTTPHeaderField:@"Content-Length"];
-        NSLog(@"\nChild Method is %@", [self.request HTTPMethod]);
+        NSLog(@"\nChild Method is %@\n", [self.request HTTPMethod]);
         NSLog(@"\nFinal Child Header Fields are %@\n",[self.request allHTTPHeaderFields]);
         NSLog(@"\nChild URL is %@\n", [self.request URL]);
         // make the connection

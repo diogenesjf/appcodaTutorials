@@ -20,32 +20,44 @@
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view, typically from a nib.
-    self.userId = @"sean0";
+}
+- (IBAction)getChildLocation:(id)sender
+{
+    //GET request for child location
+    // unpack json data and determine if the child is in the zone or not
     
-//      with strings
-    self.longitude = @"2.1";
-    self.latitude = @"2.1";
+    NSString *website = @"http://protected-wildwood-8664.herokuapp.com/users/sean0.json";
+    
+    self.url = [[NSURL alloc]initWithString:website];
+    self.request = [NSMutableURLRequest requestWithURL:self.url];
+    
+    [self.request setHTTPMethod:@"GET"];
+    
+    self.data = [NSMutableData dataWithCapacity:0];
+    self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
+}
+
+- (IBAction)postData:(id)sender
+{
+    self.userId = @"sean0";
+    self.longitude = @"222";
+    self.latitude = @"222";
     self.radius = @"2.1";
     self.data = [NSMutableData dataWithCapacity:0];
-
+    
     NSString *website = @"http://protected-wildwood-8664.herokuapp.com/users";
-
+    
     //convert encoding on website string to proper NSUTF8StringEncoding to prevent malformed NSURLMutableRequest object
-
+    
     self.url = [[NSURL alloc]initWithString:[website
                                              stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     self.request = [NSMutableURLRequest requestWithURL:self.url];
     NSLog(@"\nInitial NSURLRequest Parent object is %@",self.request);
-}
 
-- (IBAction)postData:(id)sender
-{
-    // compose NSData object to send via NSURLRequest
+    self.dictDetails = [[NSDictionary alloc]init];
     
-    NSDictionary *parentDetails = [[NSDictionary alloc]init];
-    
-    parentDetails = @{@"utf8": @"✓", @"authenticity_token":@"EvZva3cKnzo3Y0G5R3NktucCr99o/2UWOPVAmJYdBOc=",
+    self.dictDetails = @{@"utf8": @"✓", @"authenticity_token":@"EvZva3cKnzo3Y0G5R3NktucCr99o/2UWOPVAmJYdBOc=",
                     @"user":@{@"username":self.userId,
                               @"latitude":self.latitude,
                               @"longitude":self.longitude,
@@ -54,11 +66,9 @@
                     @"controller":@"users",
                     @"action":@"update"
                     };
-
-    //
     // modify request object for post request
     
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:parentDetails options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:self.dictDetails options:NSJSONWritingPrettyPrinted error:nil];
     NSLog(@"postData variable is %@", postData);
     
     if(self.request && postData)     //set up connection object and connect!
@@ -92,20 +102,21 @@
     // Maybe you could change the label on the button, for example
 
     
-    NSLog(@"Connection succeeded! Received %d bytes of data\n", [self.data length]);
+    NSLog(@"\nConnection succeeded! Received %d bytes of data", [self.data length]);
     
-    NSLog(@"Data is valid JSON Object? %@",[NSJSONSerialization isValidJSONObject:self.data] ? @"YES" : @"NO");
-    
+    NSLog(@"\nBinary Response Data is %@", self.data);
     NSString *stringResponse = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
+    NSLog(@"\nNSString Response data is %@:", stringResponse);
     
-    NSJSONSerialization *serialResponse = [NSJSONSerialization JSONObjectWithData:self.data options:NSJSONReadingMutableContainers error:nil];
+    NSDictionary *serialResponse = [NSJSONSerialization JSONObjectWithData:self.data options:NSJSONReadingMutableContainers error:nil];
     
 
     
-    NSLog(@"%@\nNSJSONSerializationResponse data is:\n", [serialResponse description]);
-    NSLog(@"%@\nNSString Response data is:\n", stringResponse);
+    NSLog(@"\nNSJSONSerializationResponse data is %@:", serialResponse);
+
+    NSLog(@"Child is in the zone? %@", [serialResponse objectForKey:@"is_in_zone"] ? @"YES" :@"NO");
     
-    NSLog(@"Closing connection...");
+    NSLog(@"\nClosing connection...");
     
     self.connection = nil;
     self.data = nil;

@@ -14,6 +14,7 @@
 @property (copy, nonatomic)NSString* latitude;
 @property (copy, nonatomic)NSString* longitude;
 @property (copy, nonatomic)NSString* radius;
+@property (copy, nonatomic)NSDictionary* dictDetails;
 @property (strong, nonatomic)NSURL* url;
 @property  (strong, nonatomic)NSMutableURLRequest* request;
 @property (strong, nonatomic)NSURLConnection *connection;
