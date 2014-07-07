@@ -43,9 +43,9 @@
 {
     // compose NSData object to send via NSURLRequest
     
-    NSDictionary *userDetails = [[NSDictionary alloc]init];
+    NSDictionary *parentDetails = [[NSDictionary alloc]init];
     
-    userDetails = @{@"utf8": @"✓", @"authenticity_token":@"EvZva3cKnzo3Y0G5R3NktucCr99o/2UWOPVAmJYdBOc=",
+    parentDetails = @{@"utf8": @"✓", @"authenticity_token":@"EvZva3cKnzo3Y0G5R3NktucCr99o/2UWOPVAmJYdBOc=",
                     @"user":@{@"username":self.userId,
                               @"latitude":self.latitude,
                               @"longitude":self.longitude,
@@ -58,7 +58,7 @@
     //
     // modify request object for post request
     
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:userDetails options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:parentDetails options:NSJSONWritingPrettyPrinted error:nil];
     NSLog(@"postData variable is %@", postData);
     
     if(self.request && postData)     //set up connection object and connect!
