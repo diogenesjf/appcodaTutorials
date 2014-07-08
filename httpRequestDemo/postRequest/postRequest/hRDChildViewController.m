@@ -62,9 +62,11 @@
         [self.request setHTTPBody:childPostData];
         [self.request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [self.request setValue:[NSString stringWithFormat:@"%d", [childPostData length]] forHTTPHeaderField:@"Content-Length"];
+        
         NSLog(@"\nChild Method is %@\n", [self.request HTTPMethod]);
         NSLog(@"\nFinal Child Header Fields are %@\n",[self.request allHTTPHeaderFields]);
         NSLog(@"\nChild URL is %@\n", [self.request URL]);
+        
         // make the connection
         
         self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];

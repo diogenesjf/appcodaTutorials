@@ -9,4 +9,6 @@
 #import "hRDViewController.h"
 
 @interface hRDChildViewController : hRDViewController
+@property (weak, nonatomic) IBOutlet UILabel *childUpdateStatusLabel;
+
 @end

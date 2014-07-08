@@ -26,7 +26,7 @@
     //GET request for child location
     // unpack json data and determine if the child is in the zone or not
     
-    NSString *website = @"http://protected-wildwood-8664.herokuapp.com/users/sean0.json";
+    NSString *website = @"https://protected-wildwood-8664.herokuapp.com/users/sean0.json";
     
     self.url = [[NSURL alloc]initWithString:website];
     self.request = [NSMutableURLRequest requestWithURL:self.url];
@@ -45,7 +45,7 @@
     self.radius = @"2.1";
     self.data = [NSMutableData dataWithCapacity:0];
     
-    NSString *website = @"http://protected-wildwood-8664.herokuapp.com/users";
+    NSString *website = @"https://protected-wildwood-8664.herokuapp.com/users";
     
     //convert encoding on website string to proper NSUTF8StringEncoding to prevent malformed NSURLMutableRequest object
     
@@ -114,7 +114,7 @@
     
     NSLog(@"\nNSJSONSerializationResponse data is %@:", serialResponse);
 
-    NSLog(@"Child is in the zone? %@", [serialResponse objectForKey:@"is_in_zone"] ? @"YES" :@"NO");
+    NSLog(@"\nChild is in the zone? %@", [serialResponse objectForKey:@"is_in_zone"] ? @"YES" :@"NO");
     
     NSLog(@"\nClosing connection...");
     
@@ -150,12 +150,14 @@
     //Release the connection and the data object
     // by setting properties to nil
     // loop through multiple data structures as needed
+    NSLog(@"self.connection current request is %@",[self.connection currentRequest]);
     
     self.connection = nil;
     self.data = nil;
     
     // tell user about the failure
     
+    NSLog(@"\nError Code is %d", [error code]);
     NSLog(@"Connection failed! Error - %@ %@",
           [error localizedDescription],[[error userInfo] objectForKey:NSURLErrorFailingURLErrorKey]);
 }
