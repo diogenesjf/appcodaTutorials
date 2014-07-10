@@ -67,6 +67,7 @@
                     <tabBarItem key="tabBarItem" title="Parent" id="mga-qG-8aX"/>
                     <connections>
                         <outlet property="childZoneStatusLabel" destination="Ywy-re-3a4" id="Jgr-el-y4I"/>
+                        <outlet property="parentUserIdLabel" destination="jOG-X8-fae" id="5wO-zi-p4o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

@@ -39,13 +39,14 @@
 
 - (IBAction)postData:(id)sender
 {
-    self.userId = @"sean0";
+    self.userId = @"sean0000";
     self.longitude = @"222";
     self.latitude = @"222";
     self.radius = @"2.1";
     self.data = [NSMutableData dataWithCapacity:0];
     
     NSString *website = @"https://protected-wildwood-8664.herokuapp.com/users";
+    self.parentUserIdLabel.text = self.userId;
     
     //convert encoding on website string to proper NSUTF8StringEncoding to prevent malformed NSURLMutableRequest object
     
@@ -116,6 +117,8 @@
 
     NSLog(@"\nChild is in the zone? %@", [serialResponse objectForKey:@"is_in_zone"] ? @"YES" :@"NO");
     
+    self.childZoneStatusLabel.text = [serialResponse objectForKey:@"is_in_zone"] ? @"YES" :@"NO";
+    
     NSLog(@"\nClosing connection...");
     
     self.connection = nil;
@@ -161,11 +164,4 @@
     NSLog(@"Connection failed! Error - %@ %@",
           [error localizedDescription],[[error userInfo] objectForKey:NSURLErrorFailingURLErrorKey]);
 }
-
-- (void)connection:(NSURLConnection *)connection
-willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-{
-    NSLog(@"%@ authentication challenge received?\n", challenge == nil ?@"NO" :[challenge description]);
-}
-
 @end

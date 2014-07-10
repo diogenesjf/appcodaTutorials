@@ -19,7 +19,8 @@
 @property  (strong, nonatomic)NSMutableURLRequest* request;
 @property (strong, nonatomic)NSURLConnection *connection;
 @property(strong, nonatomic)NSMutableData *data;
-@property (weak, nonatomic) IBOutlet UILabel *childZoneStatusLabel;
+@property (strong, nonatomic) IBOutlet UILabel *childZoneStatusLabel;
+@property (strong, nonatomic) IBOutlet UILabel *parentUserIdLabel;
 
 
 

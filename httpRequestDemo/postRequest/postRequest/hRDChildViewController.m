@@ -18,7 +18,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.userId = @"sean0";
+    self.userId = @"sean0000";
     self.latitude = @"222";
     self.longitude = @"222";
     self.data = [NSMutableData dataWithCapacity:0];
@@ -73,6 +73,32 @@
         
     }
     
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    // Connection succeeded.
+    
+    
+    NSLog(@"\nConnection succeeded! Received %d bytes of data", [self.data length]);
+    
+    NSLog(@"\nBinary Response Data is %@", self.data);
+    NSString *stringResponse = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
+    NSLog(@"\nNSString Response data is %@:", stringResponse);
+    
+    NSDictionary *serialResponse = [NSJSONSerialization JSONObjectWithData:self.data options:NSJSONReadingMutableContainers error:nil];
+    
+    
+    
+    NSLog(@"\nNSJSONSerializationResponse data is %@:", serialResponse);
+    
+    self.childUpdateStatusLabel.text = @"Updated!";
+
+    
+    NSLog(@"\nClosing connection...");
+    
+    self.connection = nil;
+    self.data = nil;
 }
 
 /*
